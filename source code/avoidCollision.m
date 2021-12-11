@@ -18,15 +18,14 @@ function [out, state ] = avoidCollision(in, state)
 %       any state used by the controller
 
 % Code to generate controller output
-x2 = in.m.x;
-y2 = in.m.y;
+
 % if other one has already reach dest, keep using optimize 
 
 % predit the direction the other aircraaft would go 
 % 1. locate the position of the other aircraft relate to you in which
 % quadrant
-xDiff = in.x - x2;
-yDiff = in.y- y2;
+xDiff = in.x - in.m.x;
+yDiff = in.y- in.m.y;
 if(xDiff >=0 && yDiff>=0)
     %if the other aircraft is in the 3rd quardrant
     %turn right
