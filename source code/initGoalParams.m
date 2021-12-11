@@ -11,6 +11,7 @@ params(2).x = s2(1);
 params(2).y = s2(2);
 params(2).xd = t2(1);
 params(2).yd = t2(2);
+% initial for 0 degree to top
 params(2).theta = 0;
 
 params(1).m = [];

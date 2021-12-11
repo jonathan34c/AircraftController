@@ -58,13 +58,13 @@ else
 end
 distLeft = abs(in.xd-xLeft)+abs(in.yd-yLeft);
 distRight= abs(in.xd- xRight)+abs(in.yd-yRight);
-distFront = abs(in.xd-xFront)+abs(in.yd-yFront);
+distFront = abs(in.xs-xFront)+abs(in.yd-yFront)
 
 % destination and current is different
 % determine which way to go 
 
 
-minDist = min([distLeft, distRight, distFront]);
+minDist = min(distLeft, distRight, distFront);
 if(minDist == distLeft)
     out.val =+1;
     state.mode = 1;
