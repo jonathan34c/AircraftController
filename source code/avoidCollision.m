@@ -23,10 +23,6 @@ if (isempty(state))
     state.mode = 0; 
 end
 
-
-
-
-
 % in1 prediction
 % Code to generate controller output
 theta = in.theta;
