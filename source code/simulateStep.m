@@ -31,7 +31,7 @@ for i=1:length(in)
     elseif(theta == 180)
         res(i).x = in(i).x - k*v;
     elseif(theta == 270)
-        res(i).y = in(i).y - k*v;
+         res(i).y = in(i).y - k*v;
     end
     res(i).theta = theta;
 end

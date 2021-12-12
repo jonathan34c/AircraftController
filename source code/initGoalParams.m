@@ -6,6 +6,9 @@ params(1).y = s1(2);
 params(1).xd = t1(1);
 params(1).yd = t1(2);
 params(1).theta = 0;
+params(1).state = 0;
+params(1).tempx=t1(1);
+params(1).tempy=t1(2);
 
 params(2).x = s2(1);
 params(2).y = s2(2);
@@ -13,6 +16,10 @@ params(2).xd = t2(1);
 params(2).yd = t2(2);
 % initial for 0 degree to top
 params(2).theta = 0;
+params(2).state = 0;
+params(2).tempx=t1(1);
+params(2).tempy=t1(2);
+
 
 params(1).m = [];
 params(2).m = [];

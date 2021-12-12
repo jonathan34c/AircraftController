@@ -22,26 +22,9 @@ pos2 = [];
 s1 = [];
 s2 = [];
 for i=1:timeout
-    %check if we need to 
-
-    if((~isempty(in(1).m) || ~isempty(in(2).m)) && (~reachEnd(in(1))&& ~reachEnd(in(2))))
-         % Avoid Collision
-         minDist1 = abs(in(1).xd-in(1).x).^2+abs(in(1).yd-in(1).y).^2;
-         minDist2 = abs(in(2).xd-in(2).x).^2+abs(in(2).yd-in(2).y).^2;
-         if(minDist1<=minDist2)
-             % route the shorter aircraft
-            [out(1), s1] = controller(in(1), s1);
-            [out(2), s2] = avoidCollision(in(2), s2);
-         else
-             [out(2), s2] = controller(in(2), s2);
-             [out(1), s1] = avoidCollision(in(1), s1);
-         end    
-        
-    else   
-        % Compute controller outputs normally
-        [out(1), s1] = controller(in(1), s1);
-        [out(2), s2] = controller(in(2), s2);
-    end    
+      
+    [out(2), s2] = avoidCollision(in(2), s2);
+    [out(1), s1] = avoidCollision(in(1), s1);
     
     
     % Store controller outputs and aircraft state 

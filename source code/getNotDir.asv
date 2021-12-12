@@ -1,0 +1,18 @@
+function [nextNotdir] = getNotDir(array1,array2)
+%GETNOTDIR Summary of this function goes here
+%   Detailed explanation goes here
+nextNotdir = -1;
+for N=1:size(array1)
+    list1 = array1(N);
+    for K=1:size(array2)
+        array1(0,N)
+%         if(array1(0,N)==array2(0,K) && array1(1,N)==array2(1,K))
+%                 nextNotdir = K;
+%                 return
+%         end
+    end
+end  
+
+ 
+end
+
