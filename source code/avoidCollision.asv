@@ -17,45 +17,150 @@ function [out, state ] = avoidCollision(in, state)
 % state: 
 %       any state used by the controller
 
-% Code to generate controller output
-x2 = in.m.x;
-y2 = in.m.y;
-xd2 = in.m.xd;
-yd2 = in.m.yd2;
-if(x2==xd2 && y2==yd2)
-   [out1, state1] = controller( in, state);
-   out.val
+
+% Initialize state
+if (isempty(state))
+    state.mode = 0; 
 end
 
-% predit the direction the other aircraaft would go 
-% 1. locate the position of the other aircraft relate to you in which
-% quadrant
-xDiff = in.x - x2;
-yDiff = in.y- y2;
-if(xDiff >=0 && yDiff>=0)
-    %if the other aircraft is in the 3rd quardrant
-    %turn right
-     out.val = -2;
-     state.mode= -1;
-elseif (xDiff >=0 && yDiff <=0)
-     %4th quardrant
-     %turn left
-     out.val =+2;
-    state.mode = 1;
-elseif (xDiff <=0 && yDiff >=0) 
-    %2th quardrant
-     %turn right
-     out.val = -2;
-     state.mode= -1;
-elseif (xDiff <=0 && yDiff <=0) 
-    %1th quardrant
-      %turn left
-     out.val =+2;
-    state.mode = 1;
-end    
-     
+
+
+
+
+% in1 prediction
+% Code to generate controller output
+theta = in.theta;
 % initial for 0 degree to top
 % > theta 0 or 360 . ^ theta 90 < theta 180 
+if(theta ==0 || theta ==360)
+    xLeft = in.x;
+    yLeft =in.y+1;
+    xRight = in.x;
+    yRight=in.y-1;
+    xFront = in.x+1;
+    yFront= in.y;
+elseif(theta ==90)
+    xLeft = in.x-1;
+    yLeft =in.y;
+    xRight = in.x+1;
+    yRight=in.y;
+    xFront = in.x;
+    yFront= in.y+1;
+else 
+    %180
+    xLeft = in.x;
+    yLeft =in.y-1;
+    xRight = in.x;
+    yRight=in.y+1;
+    xFront = in.x-1;
+    yFront= in.y;
+end
+distLeft = abs(in.xd-xLeft)+abs(in.yd-yLeft);
+distRight= abs(in.xd- xRight)+abs(in.yd-yRight);
+distFront = abs(in.xd-xFront)+abs(in.yd-yFront);
 
+% destination and current is different
+% determine which way to go 
+
+
+minDist = min([distLeft, distRight, distFront]); 
+
+isNear= false;
+
+if((~isempty(in.m)) && (~reachEnd(in)&& ~reachEnd(in.m)))
+    [preX, preY] = calculateNextPos(in.m);
+    isNear= true;
+end
+
+[nextX, nextY] = calculateNextPos(in, 1);
+
+if(isNear && nextX == preX && nextY == preY)
+    xDiff = nextX - preX;
+    yDiff = nextY- preY;
+    if(xDiff >=0 && yDiff>=0)
+        %if the other aircraft is in the 3rd quardrant
+        %turn right
+        out.val = -2;
+        state.mode= -1;
+    elseif (xDiff >=0 && yDiff <=0)
+        %4th quardrant
+        %turn left
+        out.val =+2;
+        state.mode = 1;
+    elseif (xDiff <=0 && yDiff >=0) 
+        %2th quardrant
+        %turn right
+        out.val = -2;
+        state.mode= -1;
+    elseif (xDiff <=0 && yDiff <=0) 
+        %1th quardrant
+        %turn left
+        out.val =+2;
+        state.mode = 1;
+    end    
+end 
+
+flag =-1;
+
+if(isNear && nextX == preX && nextY == preY)
+  flag =1;
+end
+[nextX, nextY] = calculateNextPos(in,2);
+if(isNear && nextX == preX && nextY == preY)
+  flag =2;
+end
+
+[nextX, nextY] = calculateNextPos(in,3);
+if(isNear && nextX == preX && nextY == preY)
+  flag =3;
+end
+
+
+if(minDist == distLeft)
+    if(flag==1)
+        minDist = min([distRight, distFront]); 
+        if(minDist == distRight)
+             out.val = -1;
+            state.mode=-1;
+        elseif(minDist == distFront)
+             out.val =0;
+             state.mode=0;
+        end
+    else   
+        out.val =+1;
+        state.mode = 1;
+    end    
+elseif(minDist == distRight)
+    if(flag==2)
+        minDist = min([distLeft, distFront]); 
+        if(minDist == distLeft)
+            out.val =+1;
+            state.mode = 1;
+        elseif(minDist == distFront)
+             out.val =0;
+             state.mode=0;
+        end
+    else   
+         out.val = -1;
+         state.mode=-1;
+    end    
+elseif(minDist== distFront)
+    if(flag==3)
+        minDist = min([distLeft, distRight]); 
+        if(minDist == distLeft)
+            out.val =+1;
+            state.mode = 1;
+        elseif(minDist == distRight)
+             out.val = -1;
+            state.mode=-1;
+        end
+    else   
+         out.val =0;
+         state.mode=0;
+    end
+else 
+    out.val =2;
+    state.mode=2;
+end  
 
 

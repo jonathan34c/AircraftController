@@ -61,10 +61,13 @@ for i=1:size(pos1, 1)
     plot(pos1(1:i, 1), pos1(1:i, 2), 'b+-');
     hold on;
     plot(pos2(1:i, 1), pos2(1:i, 2), 'r+-');
-    plot(pos1(i, 1), pos1(i, 2), 'ok', 'MarkerSize',5,'MarkerFaceColor','k');
-    plot(pos2(i, 1), pos2(i, 2), 'ok', 'MarkerSize',5,'MarkerFaceColor','k');
+    plot(pos1(i, 1), pos1(i, 2), 'ok', 'MarkerSize',5,'MarkerFaceColor','b');
+    plot(pos2(i, 1), pos2(i, 2), 'ok', 'MarkerSize',5,'MarkerFaceColor','r');
     plot(in(1).xd, in(1).yd, 'xb', 'MarkerSize',10,'MarkerFaceColor','b');
     plot(in(2).xd, in(2).yd, 'xr', 'MarkerSize',10,'MarkerFaceColor','r');
+    if(pos1(i, 1)==pos2(i, 1) && pos1(i, 2) ==pos2(i, 2))
+         plot(pos1(i, 1), pos1(i, 2), 'ok', 'MarkerSize',50,'MarkerFaceColor','k');
+    end     
     hold off;
     
     % axis
