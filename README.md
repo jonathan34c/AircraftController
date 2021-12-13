@@ -1,10 +1,6 @@
-# Aircraft Controller
-A MATLAB based aircraft controller and collision avoidance system.
-
-Assumptions - 2D plane and aircrafts are point objects.
-
-Algorithm - Shortest path greedy algorithm with collision avoidance system.
-
-Project by Ankit Mishra, Nikhilesh Behera
-
-skeleton code contributon by Nimit Singhania
+# Aircraft Avoidance Controller
+Project for CS6376 at Vanderbilt University using Matlab to simulate 2 airplanes flying on a 2-D plane. 
+Requirement: 1. Shortest route to destination
+			 2. No Collision between 2 aircrafts
+Simple controller : controller.m 
+Complext controller: avoidCollision.m

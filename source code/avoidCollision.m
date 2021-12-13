@@ -31,35 +31,10 @@ end
 theta = in.theta;
 minDist = min([distLeft, distRight, distFront]); 
 
-isNear= false;
-
 if((~isempty(in.m)) && (~reachEnd(in)&& ~reachEnd(in.m)) )
-    % predict next position of other airlpane
-    [otherNextX, otherNextY] = getNextPos(in.m);
     
-    
-%      xDiff = in.x-in.m.x;
-%      yDiff= in.y-in.m.y;
-%      if(xDiff>=0 &&yDiff>=0)
-%          out.val =+1;
-%          state.mode = 1;
-%          return 
-%      elseif(xDiff<0 &&yDiff>0)
-%          out.val = -1;
-%          state.mode=-1;
-%          return
-%      elseif(xDiff<0 &&yDiff<0)
-%          out.val = -1;
-%          state.mode=-1;
-%          return
-%      elseif(xDiff>0 &&yDiff<0)
-%          out.val =+1;
-%          state.mode = 1;
-%          return 
-%      end
+   % predict next position of other airlpane
     otherPosArray= getNextEmpty(in.m);
-    myPosArray = getNextEmpty(in);
-%     
       if(minDist == distLeft)
          if(theta ==0 || theta ==360)
              preX= in.x;
@@ -123,12 +98,7 @@ if((~isempty(in.m)) && (~reachEnd(in)&& ~reachEnd(in.m)) )
              end
          end
         
-     end
-
-    %try to go prev
-    
-
-
+      end
 end
 
 

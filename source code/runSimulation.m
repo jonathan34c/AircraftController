@@ -52,6 +52,7 @@ for i=1:size(pos1, 1)
          plot(pos1(i, 1), pos1(i, 2), 'ok', 'MarkerSize',50,'MarkerFaceColor','k');
     end     
     hold off;
+    fprintf('%i\n', i)
     
     % axis
     lx = min([min(pos1(:, 1)), min(pos2(:, 1)), in(1).xd, in(2).xd]) - 1;
